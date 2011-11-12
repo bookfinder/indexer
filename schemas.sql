@@ -1,6 +1,6 @@
 CREATE TABLE libraries (
    id                   bigserial NOT NULL,
-   name                 character varying(255) NOT NULL,
+   name                 character varying(255) UNIQUE NOT NULL,
    phone                character varying(25) NOT NULL,
    address              character varying(255) NOT NULL,
    monday               character varying(255) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE editors (
 
 CREATE TABLE authors (
    id                   bigserial NOT NULL,
-   author               character varying(255) NOT NULL,
+   author               character varying(255) UNIQUE NOT NULL,
    author_tsv           tsvector,
 
    CONSTRAINT           authors_pk PRIMARY KEY (id)
