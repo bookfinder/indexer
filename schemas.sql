@@ -1,15 +1,15 @@
 CREATE TABLE libraries (
    id                   bigserial NOT NULL,
    name                 character varying(255) UNIQUE NOT NULL,
-   phone                character varying(25) NOT NULL,
-   address              character varying(255) NOT NULL,
-   monday               character varying(255) NOT NULL,
-   tuesday              character varying(255) NOT NULL,
-   wednesday            character varying(255) NOT NULL,
-   thursday             character varying(255) NOT NULL,
-   friday               character varying(255) NOT NULL,
-   saturday             character varying(255) NOT NULL,
-   sunday               character varying(255) NOT NULL,
+   phone                character varying(25) NULL,
+   address              character varying(255) NULL,
+   monday               character varying(255) NULL,
+   tuesday              character varying(255) NULL,
+   wednesday            character varying(255) NULL,
+   thursday             character varying(255) NULL,
+   friday               character varying(255) NULL,
+   saturday             character varying(255) NULL,
+   sunday               character varying(255) NULL,
    lat                  double precision,
    lon                  double precision,
 
@@ -41,7 +41,6 @@ CREATE INDEX authors_author_tsv  ON authors USING gin(author_tsv);
 
 CREATE TABLE documents (
    id                   bigserial NOT NULL,
-   library_id           bigint NOT NULL,
    isbn                 character varying(255) UNIQUE NOT NULL,
    editor_id            bigint NULL,
    doctype              character varying(255) NULL,
@@ -56,10 +55,6 @@ CREATE TABLE documents (
    google_book          boolean default false,
 
    CONSTRAINT           documents_pk PRIMARY KEY (id),
-
-   CONSTRAINT           documents_library_id_fk
-                           FOREIGN KEY (library_id)
-                           REFERENCES libraries(id),
 
    CONSTRAINT           documents_editor_id_fk
                            FOREIGN KEY (editor_id)
