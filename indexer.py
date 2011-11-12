@@ -42,36 +42,41 @@ with open('saint-albert.csv', 'rb') as f:
          doctype = r[6]
 
          # Insert authors
-         try:
-            cur.execute("INSERT INTO authors (author) VALUES (%s) RETURNING id", (author,))
-         except:
-            cur.execute("SELECT id FROM authors WHERE author=%s", (author,))
-         author_id = cur.fetchone()[0]
+         #try:
+         #   cur.execute("INSERT INTO authors (author) VALUES (%s) RETURNING id", (author,))
+         #except:
+         #   cur.execute("SELECT id FROM authors WHERE author=%s", (author,))
+         #author_id = cur.fetchone()[0]
 
-         # Insert editors
-         try:
-            cur.execute("INSERT INTO editors (name) VALUES (%s) RETURNING id", (editor,))
-         except:
-            cur.execute("SELECT id FROM editor WHERE name=%s", (editor,))
-         editor_id = cur.fetchone()[0]
+         ## Insert editors
+         #try:
+         #   cur.execute("INSERT INTO editors (name) VALUES (%s) RETURNING id", (editor,))
+         #except:
+         #   cur.execute("SELECT id FROM editors WHERE name=%s", (editor,))
+         #editor_id = cur.fetchone()[0]
 
          # TODO : DO NOT HARDCODE THIS !
+         author_id = 1
+         editor_id = 1
          library_id = 8
 
          # Insert editors
          try:
-            cur.execute("INSERT INTO documents () VALUES (%s) RETURNING id", (editor,))
+            cur.execute("INSERT INTO documents (isbn, editor_id, doctype, type, author_id, title, subject) \
+                         VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id",
+                         (isbn, editor_id, doctype, type, author_id, title, subject))
          except:
-            cur.execute("SELECT id FROM editor WHERE name=%s", (editor,))
-         editor_id = cur.fetchone()[0]
+            cur.execute("SELECT id FROM documents WHERE isbn=%s", (isbn,))
+         document = cur.fetchone()[0]
 
-         print author_id
+         print document_id
 
          i += 1
          if i > 10:
             break
 
-      except:
+      except Exception, e:
+         print e
          pass
 
 cur.close()
