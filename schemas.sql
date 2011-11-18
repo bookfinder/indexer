@@ -1,4 +1,4 @@
-CREATE TABLE libraries (
+ CREATE TABLE libraries (
    id                   bigserial NOT NULL,
    name                 character varying(255) UNIQUE NOT NULL,
    phone                character varying(25) NULL,
@@ -41,7 +41,8 @@ CREATE INDEX authors_author_tsv  ON authors USING gin(author_tsv);
 
 CREATE TABLE documents (
    id                   bigserial NOT NULL,
-   isbn                 character varying(255) UNIQUE NOT NULL,
+   isbn                 character(10) UNIQUE NOT NULL,
+   ena                  character(13) UNIQUE NOT NULL,
    editor_id            bigint NULL,
    doctype              character varying(255) NULL,
    type                 character varying(255) NULL,
